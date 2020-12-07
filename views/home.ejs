@@ -1,0 +1,55 @@
+<head>
+    <title>Dark Souls III message simulator</title>
+    <link rel="stylesheet" href="/css/home.css">
+</head>
+
+<body>
+<div id="mainTemplate">
+  <span id="firstTemplate"></span> 
+  <span id="conjunction"></span>
+</div>
+
+<div>
+  <label for="templateBox">Template: </label>
+  <select id="templateBox">    
+    <option selected disabled hidden id="tDefault"></option>    
+  </select>
+  <label for="conjCheck">Conjunctions?</label>
+  <input type="checkbox" id="conjCheck">
+</div>
+
+<div id="words1Div">
+
+</div>
+
+<div id="conjBoxDiv">
+  <label for="conjBox">Conjunction: </label>
+  <select id="conjBox">    
+    <option selected disabled hidden id="cDefault"></option>    
+  </select>
+</div>
+
+<div id="templateBox2Div">
+  <label for="templateBox2">Second template: </label>
+  <select id="templateBox2">    
+    <option selected disabled hidden id="t2Default"></option>    
+  </select>  
+</div>
+
+<div id="words2Div">
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+var allMessages = <%-JSON.stringify(ds3messages);%>
+  console.log('ds3messages', allMessages);
+</script>
+<script type="application/javascript" src="/js/home_front.js"></script>
+</body>

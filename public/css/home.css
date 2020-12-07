@@ -1,0 +1,20 @@
+BODY {
+    background-color: #646464;
+}
+
+DIV#mainTemplate {
+    font-weight: bold;
+    font-size: 32px;
+}
+
+#conjunction {
+    display: none;
+}
+
+#conjBoxDiv {
+    display: none;
+}
+
+#templateBox2Div {
+    display: none;
+}
