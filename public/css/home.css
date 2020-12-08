@@ -7,6 +7,18 @@ DIV#mainTemplate {
     font-size: 32px;
 }
 
+.wordLabel {
+    vertical-align: top
+}
+
+.types {
+    
+}
+
+.words {
+
+}
+
 #conjunction {
     display: none;
 }

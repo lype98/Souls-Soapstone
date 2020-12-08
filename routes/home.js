@@ -3,16 +3,16 @@ const db = require('../database').db;
 const router = express.Router();
 
 let allMessages = [[],[],{
-    actions: [],
-    attribute: [],
-    bodyparts: [],
-    concepts: [],
     creatures: [],
-    geography: [],
-    musings: [],
     objects: [],
+    techniques: [],
+    actions: [],
+    geography: [],
     orientation: [],
-    techniques: []}];   
+    bodyparts: [],
+    attribute: [],    
+    concepts: [],    
+    musings: [] }];   
 
 router.get('/', (req, res) => {    
     const queryWrite = async()=> {
