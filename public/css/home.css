@@ -11,14 +11,6 @@ DIV#mainTemplate {
     vertical-align: top
 }
 
-.types {
-    
-}
-
-.words {
-
-}
-
 #conjunction {
     display: none;
 }
@@ -28,5 +20,13 @@ DIV#mainTemplate {
 }
 
 #templateBox2Div {
+    display: none;
+}
+
+#secondTemplate {
+    display: none;
+}
+
+#words2Div {
     display: none;
 }
