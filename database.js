@@ -1,5 +1,6 @@
+require('dotenv').config();
 const mysql = require('mysql');
-const offline = true;
+const offline = false;
 let db;
 
 if(offline) {
@@ -15,10 +16,11 @@ if(offline) {
         console.log('connected offline');
     });    
 } else {
+    const password = process.env.DB_PASS;    
     db = mysql.createConnection({
         host: '34.105.128.223',
         user: 'root',
-        password: 'ds3online',    
+        password: password,    
         port: 3306
     });
     

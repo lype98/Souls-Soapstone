@@ -1,7 +1,7 @@
 const express = require('express');
 const home = require('./routes/home');
 const app = express();
-const path = require('path');
+console.log()
 
 app.use(express.json());
 app.use(express.static('public'));
