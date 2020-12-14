@@ -1,25 +1,24 @@
 BODY {
-    background-color: #646464;
+    background-color: #646464;    
+}
+
+.text-responsive {
+    font-size: calc(18px + (35 - 18) * ((100vw - 320px) / (1920 - 320)));;
 }
 
 DIV#mainTemplate {
-    font-weight: bold;
-    font-size: 32px;
+    font-weight: bold;    
 }
 
 .wordLabel {
     vertical-align: top
 }
 
+#conjRow {
+    display: none;
+}
+
 #conjunction {
-    display: none;
-}
-
-#conjBoxDiv {
-    display: none;
-}
-
-#templateBox2Div {
     display: none;
 }
 
@@ -27,6 +26,34 @@ DIV#mainTemplate {
     display: none;
 }
 
-#words2Div {
-    display: none;
-}
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  
+  ::-webkit-scrollbar-track {
+    background: #303336; 
+  }
+   
+  
+  ::-webkit-scrollbar-thumb {
+    background: #15181b; 
+  }
+  
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+/*
+  .container {
+    border: 1px solid green;
+    }
+    
+    .row {
+    border: 3px solid red;
+    }
+    
+    .collumn {
+    border: 3px solid blue;
+    }
+*/

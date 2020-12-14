@@ -1,60 +1,79 @@
 <head>
     <title>Dark Souls III message simulator</title>
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/css/home.css">
 </head>
 
 <body>
-<div id="mainTemplate">
-  <span id="firstTemplate"></span> 
-  <span id="conjunction"></span>
-  <span id="secondTemplate"></span>
+  <script language="javascript" src="js/bootstrap.min.js"></script>
+
+  <div class="w-100 mb-4"> <!--Template container-->
+    <div class="row text-center">
+      <div class="collumn col-fluid text-responsive">
+        <div id="mainTemplate">
+          <span id="firstTemplate"></span> 
+          <span id="conjunction"></span>
+          <span id="secondTemplate"></span>
+        </div>
+      </div>      
+    </div>    
+  </div>
+
+<div class="container">  <!--Website container.-->
+  <div class="row"> <!--always visible row-->
+
+    <div class="collumn col-3 text-end">
+      <label for="templateBox">Template: </label>
+    </div>
+    <div class="collumn col-9">  
+      <select id="templateBox" class="btn btn-dark">    
+        <option selected disabled hidden id="tDefault"></option>    
+      </select>
+      <label for="conjCheck">Conjunctions?</label>
+      <input type="checkbox" id="conjCheck">
+    </div>
+
+    <div class="collumn col-3 text-end">
+      <label class="wordLabel" >Words: </label>
+    </div>
+    <div class="collumn col-9">      
+    <select class="type btn-dark overflow-hidden" id="type1" size=10>
+    </select>
+    <select class="word btn-dark" id="word1" size=10>
+    </select>  
+    </div>
+  </div>
+
+  <div class="row" id="conjRow"> <!--toggleable visibility row-->
+
+    <div class="collumn col-3 text-end">
+      <label for="conjBox">Conjunction: </label>
+    </div>
+    <div class="collumn col-9">
+      <select class="btn btn-dark" id="conjBox">    
+        <option selected disabled hidden id="cDefault"></option>    
+      </select>   
+    </div>
+
+    <div class="collumn col-3 text-end">
+      <label for="templateBox2">Second template: </label>
+    </div>
+    <div class="collumn col-9">
+      <select class="btn btn-dark" id="templateBox2">    
+        <option selected disabled hidden id="t2Default"></option>    
+      </select>    
+    </div>
+
+    <div class="collumn col-3 text-end">
+      <label class="wordLabel">Words: </label>
+    </div>
+    <div class="collumn col-9">
+      <select class="type btn-dark overflow-hidden" id="type2" size=10></select>
+      <select class="btn-dark" id="word2" size=10></select>    
+    </div> 
+  </div>
 </div>
-
-<div>
-  <label for="templateBox">Template: </label>
-  <select id="templateBox">    
-    <option selected disabled hidden id="tDefault"></option>    
-  </select>
-  <label for="conjCheck">Conjunctions?</label>
-  <input type="checkbox" id="conjCheck">
-</div>
-
-<div id="words1Div">
-  <label class="wordLabel">Words: </label>
-  <select class="type" id="type1" size=10>
-
-  </select>
-  <select class="word" id="word1" size=10>
-
-  </select>  
-</div>
-
-<div id="conjBoxDiv">
-  <label for="conjBox">Conjunction: </label>
-  <select id="conjBox">    
-    <option selected disabled hidden id="cDefault"></option>    
-  </select>
-</div>
-
-<div id="templateBox2Div">
-  <label for="templateBox2">Second template: </label>
-  <select id="templateBox2">    
-    <option selected disabled hidden id="t2Default"></option>    
-  </select>  
-</div>
-
-<div id="words2Div">
-  <label class="wordLabel">Words: </label>
-  <select class="type" id="type2" size=10>
-
-  </select>
-  <select id="word2" size=10>
-
-  </select>  
-</div>
-
-</div>
-
 
 
 

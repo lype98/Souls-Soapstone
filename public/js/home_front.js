@@ -61,18 +61,14 @@ elConjBox.addEventListener('click', (e)=> { // click listener to change the main
 const elConjCheck = $('#conjCheck');
 elConjCheck.addEventListener('click', (e)=> { // toggles conjunctions visibility
     if($('#conjCheck').checked == true) {
-        $('#conjBoxDiv').style.display = "inline";
         $('#conjunction').style.display = "inline";
         secondTemplate.style.display = "inline";
-        $('#templateBox2Div').style.display = "block";
-        $('#words2Div').style.display = "block";
+        $('#conjRow').style.display = "flex";
     }
-    if($('#conjCheck').checked == false) {
-        $('#conjBoxDiv').style.display = "none";
+    if($('#conjCheck').checked == false) {        
         $('#conjunction').style.display = "none";
         secondTemplate.style.display = "none";
-        $('#templateBox2Div').style.display = "none";
-        $('#words2Div').style.display = "none";
+        $('#conjRow').style.display = "none";
     }
 });
 /** ------------------------- words ------------------------- */
