@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mysql = require('mysql');
-const offline = false;
+const offline = true;
 let db;
 
 if(offline) {

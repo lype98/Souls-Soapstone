@@ -1,0 +1,104 @@
+<head>
+    <title>Dark Souls III message simulator</title>
+    
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css"/> -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/ds3.css">
+</head>
+
+<body>
+  <script language="javascript" src="/js/bootstrap.min.js"></script>   
+  
+
+  <div class="bg">
+
+    <div class="container-lg plaque mb-3"> <!--Template plaque container-->
+      <div class="row">
+        <div class="col-3 mt-3 pt-2 text-end"> <!--medalion col-->
+          <img src="/rank1.png" class="img-fluid medalion">
+        </div>
+        <div class="col-9 mt-3"> <!--Collumn that holds the template and ratings-->
+          <div class="row h-100 templateRow">
+             <!--Template collumn-->
+              <div id="mainTemplate" class="col-12 ml-5 txtWhite text-responsive">
+                <span id="firstTemplate"></span> 
+                <span id="conjunction"></span>
+                <span id="secondTemplate"></span>
+              </div>
+            
+            <div class="col-6 btmLeft">Rating</div>     
+            <div class="col-6 txtWhite btmRight">Appraisals</div>     
+          </div>
+        </div> 
+        <div class="col-4 offset-4"></div>
+        <div class="col-2 offset-2 pt-2 mb-2 justify-content-end submit">
+          <img id="submitButton" src="/submit-button.png" class="hvr-glow">
+        </div>
+      </div>
+    </div>
+   
+    <div class="container mainContainer">  <!--Website container.-->
+      <div class="menu-bg">
+        <div class="row pt-5 offset-2"> <!--always visible row-->
+
+          <div class="collumn col-sm-12 text-sm-left col-md-3 text-md-end txtWhite">
+            <label for="templateBox">Template: </label>
+          </div>
+          <div class="collumn col-sm-12 col-md-9">  
+            <select id="templateBox" class="btn btn-dark">    
+              <option selected disabled hidden id="tDefault"></option>    
+            </select>
+          </div>        
+
+          <div class="collumn col-sm-12 text-sm-left col-md-3 text-md-end txtWhite">
+            <label class="wordLabel" >Words: </label>
+          </div>
+          <div class="collumn col-sm-12 col-md-9">      
+          <select class="type btn-dark overflow-hidden" id="type1" size=10>
+          </select>
+          <select class="word btn-dark" id="word1" size=10>
+          </select>  
+          </div>          
+          <div class="collumn col-9 offset-3 txtWhite">
+            <label for="conjCheck">Conjunctions?</label>
+            <input type="checkbox" id="conjCheck" autocomplete="off">
+          </div>  
+        </div>
+
+        <div class="row offset-2" id="conjRow"> <!--toggleable visibility row-->
+
+          <div class="collumn col-sm-12 text-sm-left col-md-3 text-md-end txtWhite">
+            <label for="conjBox">Conjunction: </label>
+          </div>
+          <div class="collumn col-sm-12 col-md-9">
+            <select class="btn btn-dark" id="conjBox">    
+              <option selected disabled hidden id="cDefault"></option>    
+            </select>   
+          </div>
+
+          <div class="collumn col-sm-12 text-sm-left col-md-3 text-md-end txtWhite">
+            <label for="templateBox2">Second template: </label>
+          </div>
+          <div class="collumn col-sm-12 col-md-9">
+            <select class="btn btn-dark" id="templateBox2">    
+              <option selected disabled hidden id="t2Default"></option>    
+            </select>    
+          </div>
+
+          <div class="collumn col-sm-12 text-sm-left col-md-3 text-md-end txtWhite">
+            <label class="wordLabel">Words: </label>
+          </div>
+          <div class="collumn col-sm-12 col-md-9">
+            <select class="type btn-dark overflow-hidden" id="type2" size=10></select>
+            <select class="btn-dark" id="word2" size=10></select>    
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+  var allMessages = <%-JSON.stringify(ds3messages);%>
+    console.log('ds3messages', allMessages);
+  </script>
+  <script type="application/javascript" src="/js/ds3_front.js"></script>
+</body>

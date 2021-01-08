@@ -1,6 +1,9 @@
 const express = require('express');
 const db = require('../database').db;
 const router = express.Router();
+var bodyParser = require('body-parser')
+router.use(bodyParser.urlencoded({extended: false}))
+router.use(bodyParser.json())
 
 let allMessages = [[],[],{
     creatures: [],
@@ -51,11 +54,17 @@ router.get('/', (req, res) => {
                     if (obj.type == 10) allMessages[2].musings.push(obj.word);                   
                 });                
             };
-            res.render('home', {ds3messages: allMessages})              
+            res.render('ds3', {ds3messages: allMessages})              
         });        
     }; queryWrite()
 });
 
+router.post('/test', function (req, res) {
+    var soapstone = req.body;    
+    console.log(soapstone.message);
+    console.log(soapstone.path);
+    return res.end()
+});
 
 
 module.exports = router

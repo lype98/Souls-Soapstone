@@ -33,7 +33,7 @@ elTemplateBox.addEventListener('click', (e)=> { // click listener to change the 
             firstTemplate.innerHTML = e.target.value;
         } else {
             firstTemplate.innerHTML = e.target.value;
-            handler.refreshTemplate();
+            handler.refreshTemplate(firstTemplate,firstWord);
         }        
     }
 });
@@ -61,8 +61,8 @@ elConjBox.addEventListener('click', (e)=> { // click listener to change the main
 const elConjCheck = $('#conjCheck');
 elConjCheck.addEventListener('click', (e)=> { // toggles conjunctions visibility
     if($('#conjCheck').checked == true) {
-        $('#conjunction').style.display = "inline";
-        secondTemplate.style.display = "inline";
+        $('#conjunction').style.display = "inline-block";
+        secondTemplate.style.display = "inline-block";
         $('#conjRow').style.display = "flex";
     }
     if($('#conjCheck').checked == false) {        
@@ -86,19 +86,19 @@ elTypeClass.forEach(typeClass => {
 });
 elType.addEventListener('click', (e)=> { // click listener to populate the word box
     if(elType.value && elWord.length == 0) {
-        handler.populateWord();
+        handler.populateWord(elType,elWord);
     }
     else  {
         elWord.innerHTML = '';
-        handler.populateWord();
+        handler.populateWord(elType,elWord);
     }
 });
 
-elWord.addEventListener('click', (e)=> {
+elWord.addEventListener('click', (e)=> { // click listener to select a word and refresh the template
     if(elWord.value) {
         firstWord = elWord.value;        
         firstTemplate.innerHTML = currentTemplate;
-        handler.refreshTemplate();
+        handler.refreshTemplate(firstTemplate,firstWord);
     }
 });
 /** ------------------------- template 2 ------------------------- */
@@ -129,7 +129,7 @@ elTemplateBox2.addEventListener('click', (e)=> { // click listener to change the
             secondTemplate.innerHTML = e.target.value;
         } else {
             secondTemplate.innerHTML = e.target.value;
-            handler.refreshTemplate2();
+            handler.refreshTemplate(secondTemplate,secondWord);
         }        
     }
 });
@@ -139,24 +139,61 @@ const elType2 = $('#type2');
 
 elType2.addEventListener('click', (e)=> { // click listener to populate the word box
     if(elType2.value && elWord2.length == 0) {
-        handler.populateWord2();
+        handler.populateWord(elType2,elWord2);
     }
     else  {
         elWord2.innerHTML = '';
-        handler.populateWord2();
+        handler.populateWord(elType2,elWord2);
     }
 });
 
-elWord2.addEventListener('click', (e)=> {
+elWord2.addEventListener('click', (e)=> { // click listener to select a word and refresh the template
     if(elWord2.value) {
         secondWord = elWord2.value;        
         secondTemplate.innerHTML = currentTemplate2;
-        handler.refreshTemplate2();
+        handler.refreshTemplate(secondTemplate,secondWord);
     }
+});
+/** ------------------------- Submit ------------------------- */
+const submitButton = $('#submitButton');
+
+submitButton.addEventListener('click', (e)=> {
+    
+    if(firstTemplate.innerText.includes('****')||secondTemplate.innerText.includes('****') && secondTemplate.style.display == "inline-block") { // if there are any visible gaps
+        return alert('cannot submit an uncomplete message, please fill in the (****) gaps.')
+    }    
+    else{
+        if(secondTemplate.style.display == "inline-block"){ // in case there are 2 templates            
+            let path = Math.floor(Math.random() * 99999);
+            console.log(`message: ${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`);
+            console.log(`path: ${path}`);
+            var soapstone = {
+                message: `${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`,
+                path: path
+            }            
+              var xhr = new window.XMLHttpRequest()
+              xhr.open('POST', '/ds3/test', true)
+              xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+              xhr.send(JSON.stringify(soapstone))   
+        }
+        else{
+            let path = Math.floor(Math.random() * 99999);
+            console.log(`message: ${firstTemplate.innerText}`) // in case there is one template            
+            console.log(`path: ${path}`);
+            var soapstone = {
+                message: firstTemplate.innerText,
+                path: path
+            }            
+              var xhr = new window.XMLHttpRequest()
+              xhr.open('POST', '/ds3/test', true)
+              xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+              xhr.send(JSON.stringify(soapstone))            
+        }  
+    };
 });
 /** ------------------------- handlers ------------------------- */
 let handler = {
-    populateWord: ()=> { // populates the word box with selected type
+    populateWord: (elType,elWord)=> { // populates the word box with selected type
         let type = elType.value;
         words[type].forEach(word => {
             const elOption = document.createElement('option');
@@ -165,17 +202,7 @@ let handler = {
             elWord.appendChild(elOption);                        
         });    
     },
-    populateWord2: ()=> { // populates the word box with selected type
-        let type = elType2.value;
-        words[type].forEach(word => {
-            const elOption = document.createElement('option');
-            elOption.value = word;
-            elOption.innerHTML = word;
-            elWord2.appendChild(elOption);                        
-        });    
-    },
-    refreshTemplate: ()=>{firstTemplate.innerHTML = firstTemplate.innerHTML.replace("****", firstWord);},
-    refreshTemplate2: ()=>{secondTemplate.innerHTML = secondTemplate.innerHTML.replace("****", secondWord);}
+    refreshTemplate: (templateEl,wordEl)=>{templateEl.innerHTML = templateEl.innerHTML.replace("****", wordEl);},
 };
 
 
