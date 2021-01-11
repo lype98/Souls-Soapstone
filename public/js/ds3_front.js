@@ -163,28 +163,26 @@ submitButton.addEventListener('click', (e)=> {
         return alert('cannot submit an uncomplete message, please fill in the (****) gaps.')
     }    
     else{
-        if(secondTemplate.style.display == "inline-block"){ // in case there are 2 templates            
-            let path = Math.floor(Math.random() * 99999);
-            console.log(`message: ${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`);
-            console.log(`path: ${path}`);
-            var soapstone = {
+        if(secondTemplate.style.display == "inline-block"){ // in case there are 2 templates
+            let path = Math.floor(Math.random() * 99999); // create a random path number for a URL later on
+            console.log(`message: ${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText} / path: ${path}`);            
+            var soapstone = { // object to send to API
                 message: `${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`,
                 path: path
             }            
-              var xhr = new window.XMLHttpRequest()
+              var xhr = new window.XMLHttpRequest() // AJAX POST request to /ds3/test to send soapstone object
               xhr.open('POST', '/ds3/test', true)
               xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
               xhr.send(JSON.stringify(soapstone))   
         }
         else{
-            let path = Math.floor(Math.random() * 99999);
-            console.log(`message: ${firstTemplate.innerText}`) // in case there is one template            
-            console.log(`path: ${path}`);
-            var soapstone = {
+            let path = Math.floor(Math.random() * 99999); // create a random path number for a URL later on
+            console.log(`message: ${firstTemplate.innerText} / path: ${path}`) // in case there is one template
+            var soapstone = { // object to send to API
                 message: firstTemplate.innerText,
                 path: path
             }            
-              var xhr = new window.XMLHttpRequest()
+              var xhr = new window.XMLHttpRequest() // AJAX POST request to /ds3/test to send soapstone object
               xhr.open('POST', '/ds3/test', true)
               xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
               xhr.send(JSON.stringify(soapstone))            

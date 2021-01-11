@@ -59,10 +59,20 @@ router.get('/', (req, res) => {
     }; queryWrite()
 });
 
-router.post('/test', function (req, res) {
-    var soapstone = req.body;    
-    console.log(soapstone.message);
-    console.log(soapstone.path);
+router.post('/test', async(req, res)=> {
+    const soapstone = req.body;
+    // query db, check if there is already another message that's the same. if there is, ask user if they want to visit the link, else, check path
+    await db.query('SELECT message,path FROM ds3messages.soapstones', (error,results,fields) => {
+        if (error) throw error;
+        for (result of results) {            
+            if(result.message == soapstone.message) { /* IMPORTANT, change this console log to a redirect prompt in the front end to /ds3/result.path */
+                console.log(`this message already exists! path: ${result.path}`);
+            }
+          }
+    });
+    //query db, check path, if there's already another one, reroll a few more random ones and check again
+    //if all successfull, redirect to new page with the submitted message
+    console.log(soapstone);    
     return res.end()
 });
 
