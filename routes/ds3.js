@@ -62,15 +62,17 @@ router.get('/', (req, res) => {
 router.get('/:path', async(req, res) => { // page that will load just the template from the DB
     let soapstone = {
         message: '',
-        appraisals: ''
+        good: '',
+        bad: '',
     }
-    await db.query('SELECT message,path,appraisals FROM ds3messages.soapstones', (error,results,fields) => {        
+    await db.query('SELECT message,path,good,bad FROM ds3messages.soapstones', (error,results,fields) => {        
         let current = 0;
         for(result of results) {
             current++
             if(result.path === parseInt(req.params.path)) { // if path exists in DB, fill soapstone object and render template page
                 soapstone.message = result.message;
-                soapstone.appraisals = result.appraisals;
+                soapstone.good = result.good;
+                soapstone.bad = result.bad;
                 console.log(soapstone);
                 return res.render('ds3-template', {soapstone: soapstone})
             }

@@ -2,7 +2,6 @@ BODY {
     background-color: #111111;      
 }
 
-
 .bg { 
   background-image: url("/background.png");  
   height: 100%; 
@@ -11,15 +10,13 @@ BODY {
   background-size: cover;
 }
 
-.menu-bg { 
-  background-image: url("/message-menu.png");  
-  height: 100%;  
-  background-repeat: no-repeat; 
-  background-size: cover;
-}
-
 .container-lg {  
   font-family: "Mandrel";
+}
+
+.template {
+  position: relative; 
+  top: 50px;
 }
 
 .plaque {
@@ -61,37 +58,25 @@ BODY {
   right: 0;
 }
 
-.submit {  
+.alignEnd {  
   display: flex;
   align-self: flex-end;
 }
 
-.mainContainer { 
-  width: 40%;
-  height: 77.7%;
-  font-family: "Mandrel";
+.rating {  
+  font-weight: bolder;
+  font-size: 130%;
 }
 
-.wordLabel {
-    vertical-align: top
+.ratedGood {
+  color: #096be8;
 }
 
-#conjRow {
-    display: none;
+.ratedBad {
+  color: #5a1717;
 }
 
-#conjunction {
-    display: none;
-}
-
-#firstTemplate {
-  display: inline-block;
-}
-
-#secondTemplate {
-    display: none;
-}
-
+/* ----------------------- EXTRAS ----------------------- */
 ::-webkit-scrollbar {
     width: 10px;
   }
