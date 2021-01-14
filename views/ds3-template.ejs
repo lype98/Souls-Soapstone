@@ -1,0 +1,44 @@
+<head>
+    <title>Dark Souls III message simulator</title>
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/ds3-template.css">
+</head>
+
+<script>var soapstone = <%-JSON.stringify(soapstone);%></script>
+<body>
+  <script language="javascript" src="/js/bootstrap.min.js"></script>   
+  
+
+  <div class="bg">
+
+    <div class="container-lg plaque mb-3"> <!--Template plaque container-->
+      <div class="row">
+        <div class="col-3 mt-3 pt-2 text-end"> <!--medalion col-->
+          <img src="/rank1.png" class="img-fluid medalion">
+        </div>
+        <div class="col-9 mt-3"> <!--Collumn that holds the template and ratings-->
+          <div class="row h-100 templateRow">
+             <!--Template collumn-->
+              <div id="mainTemplate" class="col-12 ml-5 txtWhite text-responsive">
+                <span id="firstTemplate"><%=soapstone.message%></span> 
+              </div>
+            
+            <div class="col-6 btmLeft">Rating</div>     
+            <div class="col-6 txtWhite btmRight">Appraisals</div>     
+          </div>
+        </div> 
+        <div class="col-4 offset-4"></div>
+        <div class="col-2 offset-2 pt-2 mb-2 justify-content-end submit">
+          <img id="submitButton" src="/submit-button.png" class="hvr-glow">
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <script>
+  
+    console.log('soapstone', soapstone);
+  </script>
+  <script type="application/javascript" src="/js/ds3-template.js"></script>
+</body>
