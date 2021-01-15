@@ -25,7 +25,7 @@
               </div>
             
             <div class="col-6 btmLeft rating"></div>     
-            <div class="col-6 txtWhite btmRight">Appraisals &nbsp;&nbsp;&nbsp;&nbsp;<%=soapstone.good-soapstone.bad%></div>     
+            <div id="appraisals" class="col-6 txtWhite btmRight">Appraisals &nbsp;&nbsp;&nbsp;&nbsp;<%=soapstone.good-soapstone.poor%></div>     
           </div>
         </div>
         <div class="col-5 col-lg-1 offset-lg-4 pt-2 mb-2">
@@ -35,6 +35,12 @@
         <div class="col-5 col-lg-1 pt-2 mb-2 justify-content-end alignEnd">
           <img id="dispargeButton" src="/disparge-button.png" class="hvr-glow">
         </div>
+      </div>
+    </div>
+    <div class="container-lg goodPoor">
+      <div class="row justify-content-end">
+        <div id="votes" class="col-4 col-lg-2 txtWhite noWrap"><%=`Good: ${soapstone.good}`%>&nbsp;&nbsp;&nbsp;&nbsp;<%=`Poor: ${soapstone.poor}`%></div>
+        
       </div>
     </div>
 

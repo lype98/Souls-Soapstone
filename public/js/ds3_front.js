@@ -170,8 +170,8 @@ submitButton.addEventListener('click', (e)=> {
                 message: `${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`,
                 path: path
             }            
-              var xhr = new window.XMLHttpRequest() // AJAX POST request to /ds3/test to send soapstone object
-              xhr.open('POST', '/ds3/test', true)
+              var xhr = new window.XMLHttpRequest() // AJAX POST request to /ds3/submitted_soapstone to send soapstone object
+              xhr.open('POST', '/ds3/submitted_soapstone', true)
               xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
               xhr.send(JSON.stringify(soapstone))   
         }
@@ -182,8 +182,8 @@ submitButton.addEventListener('click', (e)=> {
                 message: firstTemplate.innerText,
                 path: path
             }            
-              var xhr = new window.XMLHttpRequest() // AJAX POST request to /ds3/test to send soapstone object
-              xhr.open('POST', '/ds3/test', true)
+              var xhr = new window.XMLHttpRequest() // AJAX POST request to /ds3/submitted_soapstone to send soapstone object
+              xhr.open('POST', '/ds3/submitted_soapstone', true)
               xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
               xhr.send(JSON.stringify(soapstone))            
         }  

@@ -63,16 +63,16 @@ router.get('/:path', async(req, res) => { // page that will load just the templa
     let soapstone = {
         message: '',
         good: '',
-        bad: '',
+        poor: '',
     }
-    await db.query('SELECT message,path,good,bad FROM ds3messages.soapstones', (error,results,fields) => {        
+    await db.query('SELECT message,path,good,poor FROM ds3messages.soapstones', (error,results,fields) => {        
         let current = 0;
         for(result of results) {
             current++
             if(result.path === parseInt(req.params.path)) { // if path exists in DB, fill soapstone object and render template page
                 soapstone.message = result.message;
                 soapstone.good = result.good;
-                soapstone.bad = result.bad;
+                soapstone.poor = result.poor;
                 console.log(soapstone);
                 return res.render('ds3-template', {soapstone: soapstone})
             }
@@ -83,9 +83,7 @@ router.get('/:path', async(req, res) => { // page that will load just the templa
     });
 });
 
-
-
-router.post('/test', async(req, res)=> {
+router.post('/submitted_soapstone', async(req, res)=> {
     const soapstone = req.body;
     // query db, check if there is already another message that's the same. if there is, ask user if they want to visit the link, else, check path
     await db.query('SELECT message,path FROM ds3messages.soapstones', (error,results,fields) => {
@@ -121,5 +119,20 @@ router.post('/test', async(req, res)=> {
     return res.end()
 });
 
+router.post('/appraised', (req, res)=> {
+    const vote = req.body;
+    if(vote.appraise == true) {
+        console.log(vote.message+' was appraised!');
+        db.query(`UPDATE ds3messages.soapstones SET good = good + 1 WHERE (message = '${vote.message}');`, (error,results,fields) => {})
+    };
+});
+
+router.post('/disparged', (req, res)=> {
+    const vote = req.body;
+    if(vote.disparge == true) {
+        console.log(vote.message+' was disparged!');
+        db.query(`UPDATE ds3messages.soapstones SET poor = poor + 1 WHERE (message = '${vote.message}');`, (error,results,fields) => {})
+    }
+});
 
 module.exports = router
