@@ -10,6 +10,22 @@ if(soapstone.poor > soapstone.good) {
     $('.rating').classList.add('ratedPoor');
 }
 
+(()=>{
+    if(appraisals > 100 && appraisals <= 200){
+        $('#medalion').setAttribute("src","/assets-ds3/rank2.png")        
+    }
+    if(appraisals > 200 && appraisals <= 300){
+        $('#medalion').setAttribute("src","/assets-ds3/rank3.png")        
+    }
+    if(appraisals > 300 && appraisals <= 500){
+        $('#medalion').setAttribute("src","/assets-ds3/rank4.png")        
+    }
+    if(appraisals > 500){
+        $('#medalion').setAttribute("src","/assets-ds3/rank5.png")        
+    }
+})()
+
+var test = 'test'
 const appraiseButton = $('#appraiseButton');
 const dispargeButton = $('#dispargeButton');
 

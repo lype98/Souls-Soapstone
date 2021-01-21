@@ -157,38 +157,76 @@ elWord2.addEventListener('click', (e)=> { // click listener to select a word and
 /** ------------------------- Submit ------------------------- */
 const submitButton = $('#submitButton');
 
-submitButton.addEventListener('click', (e)=> {
+submitButton.addEventListener('click', async(e)=> {
     
     if(firstTemplate.innerText.includes('****')||secondTemplate.innerText.includes('****') && secondTemplate.style.display == "inline-block") { // if there are any visible gaps
-        return alert('cannot submit an uncomplete message, please fill in the (****) gaps.')
+        return handler.modalFillBlanks();
     }    
     else{
-        if(secondTemplate.style.display == "inline-block"){ // in case there are 2 templates
+        const submissionID = Math.floor(Math.random() * 9999999999);
+        // in case there are 2 templates
+        if(secondTemplate.style.display == "inline-block"){
             let path = Math.floor(Math.random() * 99999); // create a random path number for a URL later on
             console.log(`message: ${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText} / path: ${path}`);            
             var soapstone = { // object to send to API
                 message: `${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`,
-                path: path
+                path: path,
+                ID: submissionID
             }            
-              var xhr = new window.XMLHttpRequest() // AJAX POST request to /ds3/submitted_soapstone to send soapstone object
-              xhr.open('POST', '/ds3/submitted_soapstone', true)
-              xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
-              xhr.send(JSON.stringify(soapstone))   
+              var xhr = new window.XMLHttpRequest(); // AJAX POST request to /ds3/submitted_soapstone to send soapstone object
+              xhr.open('POST', '/ds3/submitted_soapstone', true);
+              xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+              xhr.send(JSON.stringify(soapstone));
         }
-        else{
+        else{ // in case there is one template
             let path = Math.floor(Math.random() * 99999); // create a random path number for a URL later on
-            console.log(`message: ${firstTemplate.innerText} / path: ${path}`) // in case there is one template
+            console.log(`message: ${firstTemplate.innerText} / path: ${path}`);
             var soapstone = { // object to send to API
                 message: firstTemplate.innerText,
-                path: path
-            }            
-              var xhr = new window.XMLHttpRequest() // AJAX POST request to /ds3/submitted_soapstone to send soapstone object
-              xhr.open('POST', '/ds3/submitted_soapstone', true)
-              xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
-              xhr.send(JSON.stringify(soapstone))            
-        }  
+                path: path,
+                ID: submissionID
+            };
+              var xhr = new window.XMLHttpRequest(); // AJAX POST request to /ds3/submitted_soapstone to send soapstone object
+              xhr.open('POST', '/ds3/submitted_soapstone', true);
+              xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+              xhr.send(JSON.stringify(soapstone));
+                                  
+        }
+        let xhrExists = new window.XMLHttpRequest(); // check if soapstone exists
+        xhrExists.addEventListener("load", ()=>{
+            let xhrObject = xhrExists;            
+            const soapstoneExists = JSON.parse(xhrObject.response);
+            console.log(`soapstone exists in database: `, xhrObject, soapstoneExists);
+            if(soapstoneExists.messageExists === $('#mainTemplate').innerText){ // if message in DB matches current template open redirect modal
+                handler.modalRedirect();
+                $('#modalRedirectButton').addEventListener('click', (e)=> {
+                    window.location.href=`/ds3/${soapstoneExists.pathExists}`
+                });
+            }
+        });
+        xhrExists.open('GET', `/ds3/path/found_path/${submissionID}`); // send get request to this submission ID path
+        xhrExists.send();
+        // check if soapstone gets sent to DB
+        let xhrSent = new window.XMLHttpRequest();
+        xhrSent.addEventListener("load", ()=>{
+            let xhrObject = xhrSent;            
+            const soapstoneSent = JSON.parse(xhrObject.response);
+            console.log(`soapstone sent to database: `, xhrObject, soapstoneSent);
+            if(soapstoneSent.messageSent === $('#mainTemplate').innerText){ // if message in DB matches current template, redirect to template site
+                window.location.href=`/ds3/${soapstoneSent.pathSent}`
+            }
+        });
+        xhrSent.open('GET', `/ds3/path/submitted/${submissionID}`); // send get request to this submission ID path
+        xhrSent.send();
+        
+
     };
 });
+/** ------------------------- modals ------------------------- */
+var modalRedirectEl = document.getElementById('modalRedirect')
+modalRedirectEl.addEventListener('hide.bs.modal', function (event) {
+    location.reload();
+})
 /** ------------------------- handlers ------------------------- */
 let handler = {
     populateWord: (elType,elWord)=> { // populates the word box with selected type
@@ -201,6 +239,13 @@ let handler = {
         });    
     },
     refreshTemplate: (templateEl,wordEl)=>{templateEl.innerHTML = templateEl.innerHTML.replace("****", wordEl);},
+    modalFillBlanks: ()=>{
+        var modalFillBlanks = new bootstrap.Modal(document.getElementById('modalFillBlanks'));
+        modalFillBlanks.show();},
+    modalRedirect: ()=>{
+        var modalRedirect = new bootstrap.Modal(document.getElementById('modalRedirect'));
+        modalRedirect.show();
+    },
 };
 
 

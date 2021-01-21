@@ -3,7 +3,7 @@ BODY {
 }
 
 .bg { 
-  background-image: url("/background.png");  
+  background-image: url("/assets-ds3/background.png");  
   height: 100%; 
   background-position: center;
   background-repeat: no-repeat;
@@ -20,7 +20,7 @@ BODY {
 }
 
 .plaque {
-  background-image: url("/plaque.png");  
+  background-image: url("/assets-ds3/plaque.png");  
   background-size: 100% 100%;
 }
 

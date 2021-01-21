@@ -73,7 +73,7 @@ router.get('/:path', async(req, res) => { // page that will load just the templa
                 soapstone.message = result.message;
                 soapstone.good = result.good;
                 soapstone.poor = result.poor;
-                console.log(soapstone);
+                console.log(`user visited: `,soapstone);
                 return res.render('ds3-template', {soapstone: soapstone})
             }
             if(current >= results.length) {
@@ -85,18 +85,35 @@ router.get('/:path', async(req, res) => { // page that will load just the templa
 
 router.post('/submitted_soapstone', async(req, res)=> {
     const soapstone = req.body;
-    // query db, check if there is already another message that's the same. if there is, ask user if they want to visit the link, else, check path
+    // query db, check if there is a repeated message. if there is, ask user if they want to visit the link, else, check path
     await db.query('SELECT message,path FROM ds3messages.soapstones', (error,results,fields) => {
         if (error) throw error;
+
         const sendToDB = ()=> { // function to send the soapstone to the DB            
             db.query(`INSERT INTO ds3messages.soapstones (message,path) VALUES ("${soapstone.message}","${soapstone.path}");`, (error,results,fields) => {
                 if (error) throw error;
             });
-            // console.log(`INSERT INTO ds3messages.soapstones (message,path) VALUES ('${soapstone.message}','${soapstone.path}');`);
+            let soapstoneSent = {
+                pathSent: soapstone.path,
+                messageSent: soapstone.message}
+            router.get(`/path/submitted/${soapstone.ID}`, (req, res)=> {                    
+                res.json(soapstoneSent);
+                res.end();
+            });                  
         };
-        for (result of results) {            
-            if(result.message == soapstone.message) { /* IMPORTANT, change this console log to a redirect prompt in the front end to /ds3/result.path */
-                console.log(`this message already exists! path: ${result.path}`);
+
+        let current = 0;
+        for (result of results) {
+            current++                      
+            if(result.message === soapstone.message) { // if DB result matches the soapstone sent from the front-end send soapstone to the submission ID path
+                let soapstoneExists = {
+                    pathExists: result.path,
+                    messageExists: result.message}
+                console.log(`this message already exists! path: ${soapstoneExists.pathExists} submission ID: ${soapstone.ID}`);                
+                return router.get(`/path/found_path/${soapstone.ID}`, (req, res)=> {                    
+                    res.json(soapstoneExists);
+                    res.end();
+                });
             }
             if(result.path == soapstone.path){ // if soapstone path exists in DB, create 10 paths, try them until it sends the updated soapstone
                 const array = new Array(10).fill(0);
@@ -104,26 +121,28 @@ router.post('/submitted_soapstone', async(req, res)=> {
                 for (potentialPath of potentialPaths) {
                     if(potentialPath !== result.path){                        
                         soapstone.path = potentialPath;
-                        return sendToDB();
+                        return sendToDB(); //console.log('message sent to DB')
                     };
                 };
             }            
-            else{
-                return sendToDB(); // IMPORTANT BUG: CLICKING SUBMIT AFTER THE 1ST CLICK SENDS DUPLICATE TO DB. I NEED TO REDIRECT TO THE NEW TEMPLATE WEBSITE
+            if(current >= results.length){
+                return sendToDB(); //console.log('message sent to DB')
             }
           };
     });
     //query db, check path, if there's already another one, reroll a few more random ones and check again
     //if all successfull, redirect to new page with the submitted message
-    console.log(soapstone);    
-    return res.end()
+    // console.log(soapstone);    
+    // return res.end()
 });
 
 router.post('/appraised', (req, res)=> {
     const vote = req.body;
     if(vote.appraise == true) {
         console.log(vote.message+' was appraised!');
-        db.query(`UPDATE ds3messages.soapstones SET good = good + 1 WHERE (message = '${vote.message}');`, (error,results,fields) => {})
+        db.query(`UPDATE ds3messages.soapstones SET good = good + 1 WHERE (message = "${vote.message}");`, (error,results,fields) => {
+            if(error) throw error;
+        })
     };
 });
 
@@ -131,7 +150,9 @@ router.post('/disparged', (req, res)=> {
     const vote = req.body;
     if(vote.disparge == true) {
         console.log(vote.message+' was disparged!');
-        db.query(`UPDATE ds3messages.soapstones SET poor = poor + 1 WHERE (message = '${vote.message}');`, (error,results,fields) => {})
+        db.query(`UPDATE ds3messages.soapstones SET poor = poor + 1 WHERE (message = "${vote.message}");`, (error,results,fields) => {
+            if(error) throw error;
+        })
     }
 });
 

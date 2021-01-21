@@ -5,17 +5,19 @@
     <link rel="stylesheet" href="/css/ds3-template.css">
 </head>
 
-<script>var soapstone = <%-JSON.stringify(soapstone);%></script>
+<script>
+  let soapstone  = <%-JSON.stringify(soapstone);%>;
+  let appraisals = <%-soapstone.good-soapstone.poor%>; 
+</script>
 <body>
-  <script language="javascript" src="/js/bootstrap.min.js"></script>   
-  
+  <script language="javascript" src="/js/bootstrap.min.js"></script>     
 
   <div class="bg">
 
     <div class="container-lg plaque mb-3 template"> <!--Template plaque container-->
       <div class="row">
         <div class="col-3 mt-3 pt-2 text-end"> <!--medalion col-->
-          <img src="/rank1.png" class="img-fluid medalion">
+          <img id="medalion" src="/assets-ds3/rank1.png" class="img-fluid medalion">
         </div>
         <div class="col-9 mt-3"> <!--Collumn that holds the template and ratings--> 
           <div class="row h-100 templateRow">
@@ -29,11 +31,11 @@
           </div>
         </div>
         <div class="col-5 col-lg-1 offset-lg-4 pt-2 mb-2">
-          <img id="appraiseButton" src="/appraise-button.png" class="hvr-glow">
+          <img id="appraiseButton" src="/assets-ds3/appraise-button.png" class="hvr-glow">
         </div>
         <div class="col-2"></div>
         <div class="col-5 col-lg-1 pt-2 mb-2 justify-content-end alignEnd">
-          <img id="dispargeButton" src="/disparge-button.png" class="hvr-glow">
+          <img id="dispargeButton" src="/assets-ds3/disparge-button.png" class="hvr-glow">
         </div>
       </div>
     </div>
