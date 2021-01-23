@@ -16,53 +16,91 @@ BODY {
   padding-right: 0px;
 }
 
-
-.menu-bg { 
-  background-image: url("/assets-ds3/message-menu.png");  
-  height: 100%;  
-  background-repeat: no-repeat; 
-  background-size: cover;
-}
-
-
 .plaque {
-  background-image: url("/assets-ds3/plaque.png");  
+  background-image: url("/assets-homepage/mini-plaque.png");  
   background-size: 100% 100%;
+  position: relative;  
+  height: 0;
+  padding-bottom: 7.2%;
+  min-height: 75px;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 8px;
+  padding-bottom: 79px;
 }
 
-.medalion {
-  width: 45%;
-  min-height: 100px;
-  min-width: 100px;
-  max-width: 120px;
-  max-height: 120px;
+.mini-container {
+  /* min-height: 51px;
+  max-height: 75px; */
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.mini-row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.mini-text {
+  word-wrap: break-word;
+  padding-left: 20px;  
+}
+
+.max-height {
+max-height: 70px;
+}
+
+.medalion-col {
+  padding-left: 12;
 }
 
 .text-responsive {
     font-size: calc(13px + (32 - 13) * ((100vw - 320px) / (1920 - 320)));   
 }
 
-#mainTemplate {
-  font-family: "Mandrel";
-  display: inline-block;
-  padding-right: 7vw;
+.rating {
+  position: absolute;
+  bottom: 7px;
+  right: 30px;
 }
 
-.mainContainer { 
-  width: 43%;
-  height: 110%;
-  font-family: "Mandrel";
+/* ----------------- mini-text-font screen sizes ----------------- */
+.mini-text-font {
+  font-size: 13px;
+  
 }
 
-
-
-
-
-.ds3Background {
-  background-image: url("/assets-ds3/background.png");
+@media screen and (min-width:1405px){
+  .mini-text-font {
+    font-size: 16px;
+  }
 }
 
+@media screen and (min-width:1318px) and (max-width:1404px){
+  .mini-text-font {
+    font-size: 14px;
+  }
+}
 
+@media screen and (min-width:768px) and (max-width:1317px){
+  .mini-text-font {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:576px) and (max-width:767px){
+  .mini-text-font {
+    font-size: 13px;
+    transform: translateY(-6px);
+  }
+}
+
+@media screen and (min-width:0px) and (max-width:575px){
+  .mini-text-font {
+    font-size: 16px;
+    transform: translateY(-4px);
+  }
+}
+/* ----------------- extras ----------------- */
 ::-webkit-scrollbar {
     width: 10px;
   }
@@ -89,6 +127,7 @@ BODY {
 
   .txtWhite {
     color: #e6e2eb;
+    font-family: "Mandrel";
   }
 
   .hvr-glow {
@@ -127,14 +166,14 @@ BODY {
 
 
    /* [class*="container"] {
-    border: 2px solid green;
+    border: 1px solid green;
     }
     
     .row {
-    border: 2px solid red;
+    border: 1px solid red;
     }
     
     .collumn,[class^="col-"] {
-    border: 2px solid blue;
+    border: 1px solid blue;
     }  */
 
