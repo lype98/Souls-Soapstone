@@ -90,7 +90,7 @@ max-height: 70px;
 @media screen and (min-width:576px) and (max-width:767px){
   .mini-text-font {
     font-size: 13px;
-    transform: translateY(-6px);
+    transform: translateY(-2px);
   }
 }
 
@@ -128,6 +128,16 @@ max-height: 70px;
   .txtWhite {
     color: #e6e2eb;
     font-family: "Mandrel";
+  }
+
+  .ratedGood {
+    color: #096be8;
+    font-weight: bolder;
+  }
+  
+  .ratedPoor {
+    color: #5a1717;
+    font-weight: bolder;
   }
 
   .hvr-glow {

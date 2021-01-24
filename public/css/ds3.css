@@ -135,7 +135,7 @@ BODY {
     box-shadow: 0 0 18px rgba(255, 252, 224, 0.6);
   }
 
-   [class*="container"] {
+   /* [class*="container"] {
     border: 2px solid green;
     }
     
@@ -145,5 +145,5 @@ BODY {
     
     .collumn,[class^="col-"] {
     border: 2px solid blue;
-    } 
+    }  */
 
