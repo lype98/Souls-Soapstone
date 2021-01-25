@@ -25,7 +25,6 @@ if(soapstone.poor > soapstone.good) {
     }
 })()
 
-var test = 'test'
 const appraiseButton = $('#appraiseButton');
 const dispargeButton = $('#dispargeButton');
 
@@ -65,3 +64,6 @@ const dispargeAjax = (e)=> {
 };
 dispargeButton.addEventListener('click', dispargeAjax)
 
+$('#returnHomepage').addEventListener('click', (e)=> { // coiled sword to return to main page
+    window.location.href = '/';
+});

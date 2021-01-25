@@ -222,6 +222,10 @@ submitButton.addEventListener('click', async(e)=> {
 
     };
 });
+/** ------------------------- coiled sword ------------------------- */
+$('#returnHomepage').addEventListener('click', (e)=> {
+    window.location.href = '/';
+});
 /** ------------------------- modals ------------------------- */
 var modalRedirectEl = document.getElementById('modalRedirect')
 modalRedirectEl.addEventListener('hide.bs.modal', function (event) {

@@ -17,7 +17,7 @@ Reminder: make sure you can't submit edited messages to the DB (maybe by changin
 4. create main page that has all messages with their corresponding URL paths
 <!-- 4a. create a container where all the mini templates will go to -->
 4b. create a functioning search box to look for messages
-4c. add click listener on mini templates to visit them
-4d. add homeward bone in ds3 and templates to return to main page
+<!-- 4c. add click listener on mini templates to visit them -->
+<!-- 4d. add homeward bone in ds3 and templates to return to main page -->
 
 

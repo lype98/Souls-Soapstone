@@ -20,4 +20,12 @@ router.get('/', (req, res) => {
     }; queryWrite()
 });
 
+// router.post('/ajax', (req, res)=> {
+//     console.log(req.body)
+//     db.query('SELECT path FROM ds3messages.soapstones', (error,results,fields) => {
+//         console.log(results[1])
+//         res.json(results[1])
+//     })
+// })
+
 module.exports = router
