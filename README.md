@@ -21,3 +21,5 @@ Reminder: make sure you can't submit edited messages to the DB (maybe by changin
 <!-- 4d. add homeward bone in ds3 and templates to return to main page -->
 
 
+I'm in the middle of doing the search. working good just need to load the results in the page instead of console.logging also be careful with the page and arrows when switching
+back and forth from search mode and normal mode
