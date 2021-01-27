@@ -1,6 +1,7 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 let currentPage = {id:0};
+let searchPage = 0;
 
 $('#ds3Flag').addEventListener('click', (e)=> {
     window.location.href = "/ds3";   
@@ -11,6 +12,25 @@ const handlers = {
         for(soapstone of array){ // in the future this should check what each template object is tagged as e.g. DeS or DS2       
             handlers.addDS3miniTemplate();       
         }
+    },
+    separateSearchArray: (bigArray)=> {
+        let size = 12; let arrayOfArrays = [];
+        for (let i=0; i<bigArray.length; i+=size) {
+             arrayOfArrays.push(bigArray.slice(i,i+size));
+        };
+        searchArray = arrayOfArrays;
+    },
+    arrowSearchMode: ()=> { 
+        $("#rightArrow").removeEventListener('click',rightArrow);
+        $("#leftArrow").removeEventListener('click',leftArrow);   
+        $("#rightArrow").addEventListener('click', rightArrowSearch);
+        $("#leftArrow").addEventListener('click', leftArrowSearch);
+    },
+    arrowNormalMode: ()=> { 
+        $("#rightArrow").removeEventListener('click',rightArrowSearch);
+        $("#leftArrow").removeEventListener('click',leftArrowSearch);   
+        $("#rightArrow").addEventListener('click', rightArrow);
+        $("#leftArrow").addEventListener('click', leftArrow);
     },
     addDS3miniTemplate: ()=> {
         const DS3Template = templates.content.querySelector(".DS3Template"); // select the DS3 template in the <template>        
@@ -51,9 +71,9 @@ const handlers = {
         }
     });
 })();
-
-$("#rightArrow").addEventListener('click', (e)=> {
-    if($('#miniTemplates').children.length === 12) { // CHANGE THAT 3 LATER PLEASE
+/* ---------------------------------- page arrows normal mode ---------------------------------- */
+let rightArrow = (e)=> {
+    if($('#miniTemplates').children.length === 12) {
         var xhr = new window.XMLHttpRequest();
         xhr.open('POST', '/right_arrow', true);
         xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
@@ -66,30 +86,42 @@ $("#rightArrow").addEventListener('click', (e)=> {
             }
           }
     };
-});
-
-$("#leftArrow").addEventListener('click', (e)=> {
-    if(currentPage.id >= 1) {
-        // currentPage.id--;
+};
+let leftArrow = (e)=> {
+    if(currentPage.id >= 1) {        
         var xhr = new window.XMLHttpRequest();
         xhr.open('POST', '/left_arrow', true);
         xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');    
         xhr.send(JSON.stringify(currentPage));
         xhr.onreadystatechange = ()=> {
             if (xhr.readyState === 4) {
-                $('#miniTemplates').innerHTML = ''; // clear container for refresh
-                console.log((JSON.parse(xhr.response)))
+                $('#miniTemplates').innerHTML = ''; // clear container for refresh                
                 handlers.loadTemplates((JSON.parse(xhr.response))); // Load page
                 if(currentPage.id > 0) currentPage.id--;            
             }
           }
-    }
-});
-
-/* ---------------------------------- search bar ---------------------------------- */
-  //setup before functions
-let typingTimer;                //timer identifier
-
+    };
+};
+$("#rightArrow").addEventListener('click', rightArrow);
+$("#leftArrow").addEventListener('click', leftArrow);
+/* ---------------------------------- page arrows search mode ---------------------------------- */
+let rightArrowSearch = (e)=> {
+    if(searchArray.length-1 !== searchPage) {
+        searchPage++;
+        $('#miniTemplates').innerHTML = ''; // clear container for refresh
+        handlers.loadTemplates(searchArray[searchPage]); // Load search array templates index+1
+    };
+}
+let leftArrowSearch = (e)=> {
+    if(searchPage !== 0) {
+        searchPage--;
+        $('#miniTemplates').innerHTML = ''; // clear container for refresh
+        handlers.loadTemplates(searchArray[searchPage]); // Load search array templates index+1
+    };
+}
+/* ---------------------------------- search bar ---------------------------------- */  
+let typingTimer;
+let searchArray;
 //on keyup, start the countdown
 $('#search').addEventListener('keyup', ()=> {
   clearTimeout(typingTimer);
@@ -100,19 +132,26 @@ $('#search').addEventListener('keyup', ()=> {
       xhr.open('POST', '/search_bar', true);
       xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');    
       xhr.send(JSON.stringify(searchQuery));
+
       xhr.onreadystatechange = ()=> {
         if (xhr.readyState === 4) {
-            console.log(JSON.parse(xhr.response))
+            handlers.separateSearchArray(JSON.parse(xhr.response));
+            console.log('search array: ', searchArray);
+            $('#miniTemplates').innerHTML = ''; // clear mini templates container for refresh
+            handlers.loadTemplates(searchArray[0]);
+            handlers.arrowSearchMode();// change arrows to search mode
         }          
       }
     } else {
-        $('#miniTemplates').innerHTML = ''; // clear container for refresh
+        // change back to normal mode as if clean refresh
+        $('#miniTemplates').innerHTML = ''; // clear mini templates container for refresh
         handlers.loadTemplates(soapstones);
-        currentPage.id = 0;
+        currentPage.id = 0; // reset page indexes
+        searchPage = 0;
+        handlers.arrowNormalMode();
     };
   }, 1000);
 });
-
 //on keydown, clear the countdown 
 $('#search').addEventListener('keydown', ()=> {
   clearTimeout(typingTimer);
