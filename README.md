@@ -14,12 +14,8 @@ Reminder: make sure you can't submit edited messages to the DB (maybe by changin
 3a. create a .ejs view that will be pretty much a copy of ds3.ejs but it shows just the template, being able to appraise and disparge
 3b. in ds3.js, do something like a router.get('/:path',...) that will get that path from the database and fill the template in -->
 <!-- 3.c Create logic to change medalion according to appraisals -->
-4. create main page that has all messages with their corresponding URL paths
+<!-- 4. create main page that has all messages with their corresponding URL paths -->
 <!-- 4a. create a container where all the mini templates will go to -->
-4b. create a functioning search box to look for messages
+<!-- 4b. create a functioning search box to look for messages -->
 <!-- 4c. add click listener on mini templates to visit them -->
 <!-- 4d. add homeward bone in ds3 and templates to return to main page -->
-
-
-I'm in the middle of doing the search. working good just need to load the results in the page instead of console.logging also be careful with the page and arrows when switching
-back and forth from search mode and normal mode
