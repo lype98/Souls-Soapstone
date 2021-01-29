@@ -6,6 +6,14 @@ BODY {
     background-size: cover;    
 }
 
+.bg { 
+  background-image: url("/assets-homepage/home-background.png");  
+  height: 100%; 
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .banner {
   max-height: 140px;
   min-height: 70px;
