@@ -168,58 +168,23 @@ submitButton.addEventListener('click', async(e)=> {
         if(secondTemplate.style.display == "inline-block"){
             let path = Math.floor(Math.random() * 99999); // create a random path number for a URL later on
             console.log(`message: ${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText} / path: ${path}`);            
-            var soapstone = { // object to send to API
+            let soapstone = { // object to send to API
                 message: `${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`,
                 path: path,
                 ID: submissionID
-            }            
-              var xhr = new window.XMLHttpRequest(); // AJAX POST request to /ds3/submitted_soapstone to send soapstone object
-              xhr.open('POST', '/ds3/submitted_soapstone', true);
-              xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-              xhr.send(JSON.stringify(soapstone));
+            }
+            handler.checkSubmittedMessage(soapstone);
         }
         else{ // in case there is one template
             let path = Math.floor(Math.random() * 99999); // create a random path number for a URL later on
             console.log(`message: ${firstTemplate.innerText} / path: ${path}`);
-            var soapstone = { // object to send to API
+            let soapstone = { // object to send to API
                 message: firstTemplate.innerText,
                 path: path,
                 ID: submissionID
             };
-              var xhr = new window.XMLHttpRequest(); // AJAX POST request to /ds3/submitted_soapstone to send soapstone object
-              xhr.open('POST', '/ds3/submitted_soapstone', true);
-              xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-              xhr.send(JSON.stringify(soapstone));
-                                  
+            handler.checkSubmittedMessage(soapstone);                             
         }
-        let xhrExists = new window.XMLHttpRequest(); // check if soapstone exists
-        xhrExists.addEventListener("load", ()=>{
-            let xhrObject = xhrExists;            
-            const soapstoneExists = JSON.parse(xhrObject.response);
-            console.log(`soapstone exists in database: `, xhrObject, soapstoneExists);
-            if(soapstoneExists.messageExists === $('#mainTemplate').innerText){ // if message in DB matches current template open redirect modal
-                handler.modalRedirect();
-                $('#modalRedirectButton').addEventListener('click', (e)=> {
-                    window.location.href=`/ds3/${soapstoneExists.pathExists}`
-                });
-            }
-        });
-        xhrExists.open('GET', `/ds3/path/found_path/${submissionID}`); // send get request to this submission ID path
-        xhrExists.send();
-        // check if soapstone gets sent to DB
-        let xhrSent = new window.XMLHttpRequest();
-        xhrSent.addEventListener("load", ()=>{
-            let xhrObject = xhrSent;            
-            const soapstoneSent = JSON.parse(xhrObject.response);
-            console.log(`soapstone sent to database: `, xhrObject, soapstoneSent);
-            if(soapstoneSent.messageSent === $('#mainTemplate').innerText){ // if message in DB matches current template, redirect to template site
-                window.location.href=`/ds3/${soapstoneSent.pathSent}`
-            }
-        });
-        xhrSent.open('GET', `/ds3/path/submitted/${submissionID}`); // send get request to this submission ID path
-        xhrSent.send();
-        
-
     };
 });
 /** ------------------------- coiled sword ------------------------- */
@@ -232,7 +197,7 @@ modalRedirectEl.addEventListener('hide.bs.modal', function (event) {
     location.reload();
 })
 /** ------------------------- handlers ------------------------- */
-let handler = {
+const handler = {
     populateWord: (elType,elWord)=> { // populates the word box with selected type
         let type = elType.value;
         words[type].forEach(word => {
@@ -249,6 +214,28 @@ let handler = {
     modalRedirect: ()=>{
         var modalRedirect = new bootstrap.Modal(document.getElementById('modalRedirect'));
         modalRedirect.show();
+    },
+    checkSubmittedMessage: (obj)=> {
+        let xhr = new window.XMLHttpRequest(); // AJAX POST request to /ds3/submitted_soapstone to send soapstone object
+        xhr.open('POST', '/ds3/submitted_soapstone', true);
+        xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+        xhr.send(JSON.stringify(obj));
+        xhr.onreadystatechange = ()=> {
+          if (xhr.readyState === 4) {
+              // check if response message is already in the database
+              let response = JSON.parse(xhr.response);
+              if(response.messageExists === $('#mainTemplate').innerText){
+                  handler.modalRedirect();
+                  return $('#modalRedirectButton').addEventListener('click', (e)=> {
+                      window.location.href=`/ds3/${response.pathExists}`;
+                  });
+              };
+              // check if response message got sent to the database
+              if(response.messageSent === $('#mainTemplate').innerText){
+                  window.location.href=`/ds3/${response.pathSent}`
+              };                      
+          }
+        }
     },
 };
 

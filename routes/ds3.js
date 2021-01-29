@@ -95,11 +95,9 @@ router.post('/submitted_soapstone', async(req, res)=> {
             });
             let soapstoneSent = {
                 pathSent: soapstone.path,
-                messageSent: soapstone.message}
-            router.get(`/path/submitted/${soapstone.ID}`, (req, res)=> {                    
-                res.json(soapstoneSent);
-                res.end();
-            });                  
+                messageSent: soapstone.message
+            };
+            res.json(soapstoneSent);                
         };
 
         let current = 0;
@@ -109,11 +107,8 @@ router.post('/submitted_soapstone', async(req, res)=> {
                 let soapstoneExists = {
                     pathExists: result.path,
                     messageExists: result.message}
-                console.log(`this message already exists! path: ${soapstoneExists.pathExists} submission ID: ${soapstone.ID}`);                
-                return router.get(`/path/found_path/${soapstone.ID}`, (req, res)=> {                    
-                    res.json(soapstoneExists);
-                    res.end();
-                });
+                console.log(`${soapstoneExists.messageExists} already exists! path: ${soapstoneExists.pathExists}`);                
+                return res.json(soapstoneExists);
             }
             if(result.path == soapstone.path){ // if soapstone path exists in DB, create 10 paths, try them until it sends the updated soapstone
                 const array = new Array(10).fill(0);
@@ -130,10 +125,6 @@ router.post('/submitted_soapstone', async(req, res)=> {
             }
           };
     });
-    //query db, check path, if there's already another one, reroll a few more random ones and check again
-    //if all successfull, redirect to new page with the submitted message
-    // console.log(soapstone);    
-    // return res.end()
 });
 
 router.post('/appraised', (req, res)=> {
