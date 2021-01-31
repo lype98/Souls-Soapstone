@@ -1,10 +1,11 @@
 # Souls-Soapstone
-A Dark Souls III message simulator
+A souls games message simulator
 
 Currently hosted in heroku.com (since 30th January 2021): https://souls-soapstone.herokuapp.com/
 
 
 TODO:
+start the remaining souls games message systems (Demon's Souls, Dark Souls I, Dark Souls II and Bloodborne).
 <!-- Reminder: make sure you can't submit edited messages to the DB (maybe by changing the sendToDB function in ds3.js) -->
 <!-- 1. change the main page to localhost/ds3 so I can start adding submitted templates to the database -->
 <!-- 2. a button to submit a template, creating a path number and sending it to the DB
