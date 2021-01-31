@@ -1,11 +1,11 @@
-# ds3messages
+# Souls-Soapstone
 A Dark Souls III message simulator
 
-(database currently offline, not working) Currently hosted in glitch.com (December 2020): https://dark-souls-messages.glitch.me/
+Currently hosted in heroku.com (since 30th January 2021): https://souls-soapstone.herokuapp.com/
 
 
 TODO:
-Reminder: make sure you can't submit edited messages to the DB (maybe by changing the sendToDB function in ds3.js)
+<!-- Reminder: make sure you can't submit edited messages to the DB (maybe by changing the sendToDB function in ds3.js) -->
 <!-- 1. change the main page to localhost/ds3 so I can start adding submitted templates to the database -->
 <!-- 2. a button to submit a template, creating a path number and sending it to the DB
 2a. make sure there's no duplicate path or message -->

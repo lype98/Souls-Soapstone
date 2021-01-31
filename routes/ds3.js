@@ -1,9 +1,9 @@
 const express = require('express');
 const db = require('../database').db;
 const router = express.Router();
-var bodyParser = require('body-parser')
-router.use(bodyParser.urlencoded({extended: false}))
-router.use(bodyParser.json())
+var bodyParser = require('body-parser');
+router.use(bodyParser.urlencoded({extended: false}));
+router.use(bodyParser.json());
 
 let allMessages = [[],[],{
     creatures: [],
@@ -15,11 +15,11 @@ let allMessages = [[],[],{
     bodyparts: [],
     attribute: [],    
     concepts: [],    
-    musings: [] }];   
+    musings: [] }];
 
 router.get('/', (req, res) => {    
     const queryWrite = async()=> {
-        await db.query("SELECT type FROM ds3messages.templates", (error,results,fields) => {
+        await db.query(`SELECT type FROM templates`, (error,results,fields) => {
             if (error) throw error;
             if(allMessages[0].length <= 0){
                 for (obj of results) { // get all the templates and put in allMessages index 0 array
@@ -28,7 +28,7 @@ router.get('/', (req, res) => {
                 };
             };
         });
-        await db.query("SELECT type FROM ds3messages.conjunctions", (error,results,fields) => {
+        await db.query(`SELECT type FROM conjunctions`, (error,results,fields) => {
             if (error) throw error;
             if(allMessages[1].length <= 0){
                 for (obj of results) { // get all the conjunctions and put in allMessages index 1 array
@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
                 };
             };
         });
-        await db.query("SELECT word,type FROM ds3messages.words", (error,results,fields) => {
+        await db.query(`SELECT word,type FROM words`, (error,results,fields) => {
             if (error) throw error;
             if(allMessages[2].actions.length <= 0){
                 const wordArray = results;
@@ -65,7 +65,7 @@ router.get('/:path', async(req, res) => { // page that will load just the templa
         good: '',
         poor: '',
     }
-    await db.query('SELECT message,path,good,poor FROM ds3messages.soapstones', (error,results,fields) => {        
+    await db.query(`SELECT message,path,good,poor FROM soapstones`, (error,results,fields) => {        
         let current = 0;
         for(result of results) {
             current++
@@ -86,11 +86,11 @@ router.get('/:path', async(req, res) => { // page that will load just the templa
 router.post('/submitted_soapstone', async(req, res)=> {
     const soapstone = req.body;
     // query db, check if there is a repeated message. if there is, ask user if they want to visit the link, else, check path
-    await db.query('SELECT message,path FROM ds3messages.soapstones', (error,results,fields) => {
+    await db.query(`SELECT message,path FROM soapstones`, (error,results,fields) => {
         if (error) throw error;
 
         const sendToDB = ()=> { // function to send the soapstone to the DB            
-            db.query(`INSERT INTO ds3messages.soapstones (message,path) VALUES ("${soapstone.message}","${soapstone.path}");`, (error,results,fields) => {
+            db.query(`INSERT INTO soapstones (message,path) VALUES ("${soapstone.message}","${soapstone.path}");`, (error,results,fields) => {
                 if (error) throw error;
             });
             let soapstoneSent = {
@@ -131,7 +131,7 @@ router.post('/appraised', (req, res)=> {
     const vote = req.body;
     if(vote.appraise == true) {
         console.log(vote.message+' was appraised!');
-        db.query(`UPDATE ds3messages.soapstones SET good = good + 1 WHERE (message = "${vote.message}");`, (error,results,fields) => {
+        db.query(`UPDATE soapstones SET good = good + 1 WHERE (message = "${vote.message}");`, (error,results,fields) => {
             if(error) throw error;
         })
     };
@@ -141,7 +141,7 @@ router.post('/disparged', (req, res)=> {
     const vote = req.body;
     if(vote.disparge == true) {
         console.log(vote.message+' was disparged!');
-        db.query(`UPDATE ds3messages.soapstones SET poor = poor + 1 WHERE (message = "${vote.message}");`, (error,results,fields) => {
+        db.query(`UPDATE soapstones SET poor = poor + 1 WHERE (message = "${vote.message}");`, (error,results,fields) => {
             if(error) throw error;
         })
     }
