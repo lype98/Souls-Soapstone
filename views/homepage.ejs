@@ -27,19 +27,15 @@
         </div>
       </div>
     </div>
+
     <div class="container-lg container-fluid">  <!-- mini templates container -->
-      <div class="row"> <!-- top row with search/filter -->
-        <div class="col-9 col-sm-10 col-xxl-11 ">
-          <input id="search" type="text" placeholder="Search.." class="btn-dark">
-        </div>
-        <div class="col-1" style="width: 50px;">
-          <img id="leftArrow" src="/assets-homepage/arrow-left.png" class="arrows">
-        </div>
-        <div class="col-1" style="width: 50px;">
-          <img id="rightArrow" src="/assets-homepage/arrow-right.png" class="arrows">
-        </div>
+
+      <div class="d-flex"> <!-- top row with search/filter -->
+        <input id="search" type="text" placeholder="Search.." class="btn-dark">
+        <img id="leftArrow" src="/assets-homepage/arrow-left.png" class="arrows ms-4">
+        <img id="rightArrow" src="/assets-homepage/arrow-right.png" class="arrows ms-3">
       </div>
-    </div>
+
     <div class="container-lg container-fluid">
       <div id="miniTemplates" class="row"> <!-- mini templates -->
       </div>
@@ -52,7 +48,7 @@
 
   <template id="templates">
     <!-- ----------------- DS3 template ----------------- -->
-      <div class="col-12 col-sm-6  col-md-4 plaque DS3Template">
+      <div class="col-12 col-sm-6  col-md-4 plaque DS3Template hvr-glow">
         <div class="row mini-row">
           <div class="col-3 col-sm-3 medalion-col"> <!--medalion col-->
             <img src="/assets-ds3/rank1.png" class="max-height DS3Medalion">
@@ -73,3 +69,16 @@
   <script type="application/javascript" src="/js/homepage_front.js"></script>
 </body>
 
+<template>
+  <div class="row"> <!-- top row with search/filter -->
+    <div class="col-9 col-sm-10 col-xxl-11 ">
+      <input id="search" type="text" placeholder="Search.." class="btn-dark">
+    </div>
+    <div class="col-1" style="width: 50px;">
+      <img id="leftArrow" src="/assets-homepage/arrow-left.png" class="arrows">
+    </div>
+    <div class="col-1" style="width: 50px;">
+      <img id="rightArrow" src="/assets-homepage/arrow-right.png" class="arrows">
+    </div>
+  </div>
+</template>
