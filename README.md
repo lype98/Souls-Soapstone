@@ -1,5 +1,5 @@
 # Souls-Soapstone
-A souls games message simulator
+A Souls games message simulator
 
 Currently hosted in heroku.com (since 30th January 2021): https://souls-soapstone.herokuapp.com/
 

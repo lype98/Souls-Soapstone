@@ -35,7 +35,7 @@ BODY {
   padding-right: 0;
   padding-top: 8px;
   padding-bottom: 79px;
-  cursor: pointer;
+  cursor: pointer;  
 }
 
 /* .plaque:hover {
@@ -53,9 +53,12 @@ BODY {
   margin-right: 0;
 }
 
-.mini-text {
-  word-wrap: break-word;
-  padding-left: 20px;  
+.mini-text {  
+  padding-left: 20px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: block-axis;
 }
 
 .max-height {
@@ -87,39 +90,41 @@ max-height: 70px;
 
 /* ----------------- mini-text-font screen sizes ----------------- */
 .mini-text-font {
-  font-size: 13px;
-  
+  font-size: 17px;
+  line-height: 1.2em;  
 }
 
 @media screen and (min-width:1405px){
   .mini-text-font {
-    font-size: 16px;
+    font-size: 19px;    
   }
 }
 
 @media screen and (min-width:1318px) and (max-width:1404px){
   .mini-text-font {
-    font-size: 14px;
+    font-size: 16px;    
   }
 }
 
 @media screen and (min-width:768px) and (max-width:1317px){
   .mini-text-font {
-    font-size: 12px;
+    font-size: 16px;
+    max-width: 226px;
+    line-height: 1.4em;    
   }
 }
 
 @media screen and (min-width:576px) and (max-width:767px){
   .mini-text-font {
-    font-size: 13px;
-    transform: translateY(-2px);
+    font-size: 16px;
+    max-width: 190px;
+    line-height: 1.4em;
   }
 }
 
 @media screen and (min-width:0px) and (max-width:575px){
   .mini-text-font {
-    font-size: 16px;
-    transform: translateY(-4px);
+    font-size: 16px;    
   }
 }
 /* ----------------- extras ----------------- */
