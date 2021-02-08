@@ -7,7 +7,7 @@
 
 <body>
   
-  <div class="bg">    
+  
     <div class="container-lg plaque mb-3"> <!--Template plaque container-->
       <div class="row">
         <div class="col-3 mt-3 pt-2 text-end"> <!--medalion col-->
@@ -34,66 +34,69 @@
       </div>
     </div>
        
-    <div class="container mainContainer">  <!--Website container.-->
-      <div class="col-1"><img id="returnHomepage" src="/assets-ds3/Coiled-Sword-Fragment.png" class="hvr-grow"></div> <!-- return to homepage button -->
-      <div class="menu-bg">
-        <div class="row pt-5 offset-2"> <!--always visible row-->
+    <div class="container-sm">  <!--Website container.-->      
+      <div class="row menu-bg mx-auto pt-4">
+        <div class="returnDiv"><img id="returnHomepage" src="/assets-ds3/Coiled-Sword-Fragment.png" class="hvr-grow"></div> <!-- return to homepage button -->
 
-          <div class="collumn col-sm-12 text-sm-left col-md-3 text-md-end txtWhite">
-            <label for="templateBox">Template: </label>
-          </div>
-          <div class="collumn col-sm-12 col-md-9">  
-            <select autocomplete="off" id="templateBox" class="btn btn-dark">    
-              <option selected disabled hidden id="tDefault"></option>    
-            </select>
-          </div>        
+        <div class="row"> <!--always visible row-->
+          <div class="col-auto ms-auto me-auto txtWhite">
 
-          <div class="collumn col-sm-12 text-sm-left col-md-3 text-md-end txtWhite">
-            <label class="wordLabel" >Words: </label>
+            <div class="row mb-1"> <!--template label and box-->
+              <label for="templateBox" class="col-auto col-form-label text-end">Template: </label>            
+              <div class="col">  
+                <select autocomplete="off" id="templateBox" class="btn-dark form-select">    
+                  <option selected disabled hidden id="tDefault"></option>    
+                </select>
+              </div> 
+            </div>
+
+            <div class="mb-1 noWrap d-flex"> <!--words 1 label and box-->            
+              <label class="wordLabel col-auto col-form-label text-center me-auto" >Words: </label>                    
+              <select class="type btn-dark overflow-hidden" id="type1" size=10></select>
+              <select class="word btn-dark" id="word1" size=10></select>               
+            </div>
+        
+            <div class="txtWhite"> <!--conjunction label and box-->
+              <label for="conjCheck" class="form-check-label text-end">Conjunctions?</label>
+              <input type="checkbox" id="conjCheck" autocomplete="off" class="form-check-input">
+            </div>
+            
           </div>
-          <div class="collumn col-sm-12 col-md-9">      
-          <select class="type btn-dark overflow-hidden" id="type1" size=10>
-          </select>
-          <select class="word btn-dark" id="word1" size=10>
-          </select>  
-          </div>          
-          <div class="collumn col-9 offset-3 txtWhite">
-            <label for="conjCheck">Conjunctions?</label>
-            <input type="checkbox" id="conjCheck" autocomplete="off">
-          </div>  
         </div>
 
-        <div class="row offset-2" id="conjRow"> <!--toggleable visibility row-->
+        <div id="conjRow" class="row"> <!--toggleable visibility row-->
+          <div class="col-auto ms-auto me-auto txtWhite">
 
-          <div class="collumn col-sm-12 text-sm-left col-md-3 text-md-end txtWhite">
-            <label for="conjBox">Conjunction: </label>
-          </div>
-          <div class="collumn col-sm-12 col-md-9">
-            <select autocomplete="off" class="btn btn-dark" id="conjBox">    
-              <option selected disabled hidden id="cDefault"></option>    
-            </select>   
-          </div>
+            <div class="row mb-1"> <!--conjunction label and box-->              
+              <label for="conjBox" class="col-auto col-form-label text-end">Conjunction: </label>            
+              <div class="col">
+                <select autocomplete="off" class="btn-dark form-select" id="conjBox">    
+                  <option selected disabled hidden id="cDefault"></option>    
+                </select> 
+              </div> 
+            </div>
 
-          <div class="collumn col-sm-12 text-sm-left col-md-3 text-md-end txtWhite">
-            <label for="templateBox2">Second template: </label>
-          </div>
-          <div class="collumn col-sm-12 col-md-9">
-            <select autocomplete="off" class="btn btn-dark" id="templateBox2">    
-              <option selected disabled hidden id="t2Default"></option>    
-            </select>    
-          </div>
+            <div class="row mb-1 d-flex"> <!--second template label and box-->                            
+              <label for="templateBox2" class="col-auto col-form-label text-end">Second template: </label>
+              <div class="col align-self-end">                
+                <select autocomplete="off" class="btn-dark form-select" id="templateBox2">    
+                  <option selected disabled hidden id="t2Default"></option>    
+                </select> 
+              </div> 
+            </div>  
 
-          <div class="collumn col-sm-12 text-sm-left col-md-3 text-md-end txtWhite">
-            <label class="wordLabel">Words: </label>
+            <div class="mb-1 noWrap d-flex"> <!--words 2 label and box-->                          
+              <label class="wordLabel col-auto col-form-label text-center me-auto">Words: </label>
+              <select class="type btn-dark overflow-hidden" id="type2" size=10></select>
+              <select class="btn-dark" id="word2" size=10></select>                
+            </div>
+
           </div>
-          <div class="collumn col-sm-12 col-md-9">
-            <select class="type btn-dark overflow-hidden" id="type2" size=10></select>
-            <select class="btn-dark" id="word2" size=10></select>    
-          </div> 
         </div>
+
       </div>
     </div>    
-  </div>
+
 
   <!-- Fill in the blanks Modal -->
   <div class="modal fade" id="modalFillBlanks">
