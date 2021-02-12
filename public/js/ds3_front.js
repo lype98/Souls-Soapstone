@@ -162,16 +162,14 @@ submitButton.addEventListener('click', async(e)=> {
     if(firstTemplate.innerText.includes('****')||secondTemplate.innerText.includes('****') && secondTemplate.style.display == "inline-block") { // if there are any visible gaps
         return handler.modalFillBlanks();
     }    
-    else{
-        const submissionID = Math.floor(Math.random() * 9999999999);
+    else{        
         // in case there are 2 templates
         if(secondTemplate.style.display == "inline-block"){
             let path = Math.floor(Math.random() * 99999); // create a random path number for a URL later on
             console.log(`message: ${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText} / path: ${path}`);            
             let soapstone = { // object to send to API
                 message: `${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`,
-                path: path,
-                ID: submissionID
+                path: path                
             }
             handler.checkSubmittedMessage(soapstone);
         }
@@ -180,8 +178,7 @@ submitButton.addEventListener('click', async(e)=> {
             console.log(`message: ${firstTemplate.innerText} / path: ${path}`);
             let soapstone = { // object to send to API
                 message: firstTemplate.innerText,
-                path: path,
-                ID: submissionID
+                path: path                
             };
             handler.checkSubmittedMessage(soapstone);                             
         }

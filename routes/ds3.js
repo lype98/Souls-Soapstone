@@ -62,6 +62,7 @@ router.get('/', (req, res) => {
 router.get('/:path', async(req, res) => { // page that will load just the template from the DB
     let soapstone = {
         message: '',
+        path: '',
         good: '',
         poor: '',
     }
@@ -71,6 +72,7 @@ router.get('/:path', async(req, res) => { // page that will load just the templa
             current++
             if(result.path === parseInt(req.params.path)) { // if path exists in DB, fill soapstone object and render template page
                 soapstone.message = result.message;
+                soapstone.path = result.path;
                 soapstone.good = result.good;
                 soapstone.poor = result.poor;
                 console.log(`user visited: `,soapstone);
@@ -103,7 +105,7 @@ router.post('/submitted_soapstone', async(req, res)=> {
         let current = 0;
         for (result of results) {
             current++                      
-            if(result.message === soapstone.message) { // if DB result matches the soapstone sent from the front-end send soapstone to the submission ID path
+            if(result.message === soapstone.message) { // if DB result matches the soapstone sent from the front-end send soapstone back to front end
                 let soapstoneExists = {
                     pathExists: result.path,
                     messageExists: result.message}
@@ -129,20 +131,20 @@ router.post('/submitted_soapstone', async(req, res)=> {
 
 router.post('/appraised', (req, res)=> {
     const vote = req.body;
-    if(vote.appraise == true) {
-        console.log(vote.message+' was appraised!');
-        db.query(`UPDATE soapstones SET good = good + 1 WHERE (message = "${vote.message}");`, (error,results,fields) => {
-            if(error) throw error;
+    if(vote.appraise == true && vote.path.toString().length <= 5 && Number.isInteger(vote.path)) {        
+        db.query(`UPDATE soapstones SET good = good + 1 WHERE (path = "${vote.path}");`, (error,results,fields) => {            
+            if(results.changedRows == 1) console.log(`Message with path ${vote.path} was appraised!`); // change later so it shows the message again, using the decoder I'll make            
+            if(error) console.error(error);
         })
     };
 });
 
 router.post('/disparged', (req, res)=> {
     const vote = req.body;
-    if(vote.disparge == true) {
-        console.log(vote.message+' was disparged!');
-        db.query(`UPDATE soapstones SET poor = poor + 1 WHERE (message = "${vote.message}");`, (error,results,fields) => {
-            if(error) throw error;
+    if(vote.disparge == true && vote.path.toString().length <= 5 && Number.isInteger(vote.path)) {       
+        db.query(`UPDATE soapstones SET poor = poor + 1 WHERE (path = "${vote.path}");`, (error,results,fields) => {
+            if(results.changedRows == 1) console.log(`Message with path ${vote.path} was disparged!`); // change later so it shows the message again, using the decoder I'll make
+            if(error) console.error(error);
         })
     }
 });

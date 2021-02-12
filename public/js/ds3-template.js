@@ -29,14 +29,14 @@ const appraiseButton = $('#appraiseButton');
 const dispargeButton = $('#dispargeButton');
 
 const appraiseAjax = (e)=> {
-    const appraise = {
+    const vote = {
         appraise: true,
-        message: soapstone.message
+        path: soapstone.path
     };
     var xhr = new window.XMLHttpRequest(); // AJAX POST request to /ds3/appraised to send the vote
     xhr.open('POST', '/ds3/appraised', true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    xhr.send(JSON.stringify(appraise));    
+    xhr.send(JSON.stringify(vote));    
     $('#appraiseButton').classList.add('fade-out-bck','unselectable');
     $('#dispargeButton').classList.add('fade-out-bck','unselectable');    
     appraiseButton.removeEventListener('click', appraiseAjax);
@@ -47,14 +47,14 @@ const appraiseAjax = (e)=> {
 appraiseButton.addEventListener('click', appraiseAjax)
 
 const dispargeAjax = (e)=> {
-    const disparge = {
+    const vote = {
         disparge: true,
-        message: soapstone.message
+        path: soapstone.path
     };
     var xhr = new window.XMLHttpRequest(); // AJAX POST request to /ds3/disparged to send the vote
     xhr.open('POST', '/ds3/disparged', true);
     xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-    xhr.send(JSON.stringify(disparge));    
+    xhr.send(JSON.stringify(vote));    
     $('#appraiseButton').classList.add('fade-out-bck','unselectable');
     $('#dispargeButton').classList.add('fade-out-bck','unselectable'); 
     appraiseButton.removeEventListener('click', appraiseAjax);
