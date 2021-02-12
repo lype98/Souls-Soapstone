@@ -164,21 +164,17 @@ submitButton.addEventListener('click', async(e)=> {
     }    
     else{        
         // in case there are 2 templates
-        if(secondTemplate.style.display == "inline-block"){
-            let path = Math.floor(Math.random() * 99999); // create a random path number for a URL later on
-            console.log(`message: ${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText} / path: ${path}`);            
+        if(secondTemplate.style.display == "inline-block"){            
+            console.log(`message: ${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`);            
             let soapstone = { // object to send to API
-                message: `${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`,
-                path: path                
+                message: `${firstTemplate.innerText} ${mainConjunction.innerText} ${secondTemplate.innerText}`,                
             }
             handler.checkSubmittedMessage(soapstone);
         }
-        else{ // in case there is one template
-            let path = Math.floor(Math.random() * 99999); // create a random path number for a URL later on
-            console.log(`message: ${firstTemplate.innerText} / path: ${path}`);
+        else{ // in case there is one template            
+            console.log(`message: ${firstTemplate.innerText}`);
             let soapstone = { // object to send to API
-                message: firstTemplate.innerText,
-                path: path                
+                message: firstTemplate.innerText,                
             };
             handler.checkSubmittedMessage(soapstone);                             
         }

@@ -87,16 +87,17 @@ router.get('/:path', async(req, res) => { // page that will load just the templa
 
 router.post('/submitted_soapstone', async(req, res)=> {
     const soapstone = req.body;
+    let soapstonePath = Math.floor(Math.random() * 99999); // create a random path number for a URL
     // query db, check if there is a repeated message. if there is, ask user if they want to visit the link, else, check path
     await db.query(`SELECT message,path FROM soapstones`, (error,results,fields) => {
         if (error) throw error;
 
         const sendToDB = ()=> { // function to send the soapstone to the DB            
-            db.query(`INSERT INTO soapstones (message,path) VALUES ("${soapstone.message}","${soapstone.path}");`, (error,results,fields) => {
+            db.query(`INSERT INTO soapstones (message,path) VALUES ("${soapstone.message}","${soapstonePath}");`, (error,results,fields) => {
                 if (error) throw error;
             });
             let soapstoneSent = {
-                pathSent: soapstone.path,
+                pathSent: soapstonePath,
                 messageSent: soapstone.message
             };
             res.json(soapstoneSent);                
@@ -112,12 +113,12 @@ router.post('/submitted_soapstone', async(req, res)=> {
                 console.log(`${soapstoneExists.messageExists} already exists! path: ${soapstoneExists.pathExists}`);                
                 return res.json(soapstoneExists);
             }
-            if(result.path == soapstone.path){ // if soapstone path exists in DB, create 10 paths, try them until it sends the updated soapstone
+            if(result.path == soapstonePath){ // if soapstone path exists in DB, create 10 paths, try them until it sends the updated soapstone
                 const array = new Array(10).fill(0);
                 const potentialPaths = array.map(path => path + Math.floor(Math.random() * 99999));
                 for (potentialPath of potentialPaths) {
                     if(potentialPath !== result.path){                        
-                        soapstone.path = potentialPath;
+                        soapstonePath = potentialPath;
                         return sendToDB(); //console.log('message sent to DB')
                     };
                 };
@@ -133,7 +134,10 @@ router.post('/appraised', (req, res)=> {
     const vote = req.body;
     if(vote.appraise == true && vote.path.toString().length <= 5 && Number.isInteger(vote.path)) {        
         db.query(`UPDATE soapstones SET good = good + 1 WHERE (path = "${vote.path}");`, (error,results,fields) => {            
-            if(results.changedRows == 1) console.log(`Message with path ${vote.path} was appraised!`); // change later so it shows the message again, using the decoder I'll make            
+            if(results.changedRows == 1) {
+                console.log(`Message with path ${vote.path} was appraised!`); // change later so it shows the message again, using the decoder I'll make
+                res.status(200).send("ok");
+            }
             if(error) console.error(error);
         })
     };
@@ -143,7 +147,10 @@ router.post('/disparged', (req, res)=> {
     const vote = req.body;
     if(vote.disparge == true && vote.path.toString().length <= 5 && Number.isInteger(vote.path)) {       
         db.query(`UPDATE soapstones SET poor = poor + 1 WHERE (path = "${vote.path}");`, (error,results,fields) => {
-            if(results.changedRows == 1) console.log(`Message with path ${vote.path} was disparged!`); // change later so it shows the message again, using the decoder I'll make
+            if(results.changedRows == 1) {
+                console.log(`Message with path ${vote.path} was disparged!`); // change later so it shows the message again, using the decoder I'll make
+                res.status(200).send("ok");
+            }             
             if(error) console.error(error);
         })
     }
