@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mysql = require('mysql');
-const offline = false;
+const offline = true;
 let db;
 
 if(offline) {    
@@ -8,7 +8,7 @@ if(offline) {
         host: '127.0.0.1',
         user: 'root',
         password: 'password',
-        database: 'ds3messages'
+        database: 'souls-soapstone'
     });
     
     db.connect((err) => {

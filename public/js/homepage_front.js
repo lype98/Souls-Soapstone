@@ -130,7 +130,7 @@ $('#search').addEventListener('keyup', ()=> {
       let searchQuery = {query: $('#search').value};      
       let xhr = new window.XMLHttpRequest();
       xhr.open('POST', '/search_bar', true);
-      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');    
+      xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');      
       xhr.send(JSON.stringify(searchQuery));
 
       xhr.onreadystatechange = ()=> {

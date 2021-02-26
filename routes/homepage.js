@@ -39,17 +39,27 @@ router.post('/left_arrow', (req, res)=> {
 })
 
 router.post('/search_bar', (req, res)=> {
-    const format = /[@#$%^&*()_+\-=\[\]{};':"\\|<>\/]+/;
-    let search = req.body.query;
-    if(format.test(search)){        
-        console.error(`illegal symbol in search: ${search}`);
-        return res.status(404).send("illegal symbol in search");
-      } else {
-        db.query(`SELECT message,path,good,poor,creation_time FROM soapstones where message REGEXP "\\\\${search}";`, (error,results,fields) => {        
-            if (error) console.error(error);        
+
+    const query4Search = (search)=> {
+        db.query(`SELECT message,path,good,poor,creation_time FROM soapstones where message REGEXP ?`,[search], (error,results,fields) => {        
+            if (error) console.error(error);            
             res.json(results);
         });
-      };
+    };
+
+    if(req.body.query === '?' || req.body.query === '...') {
+        let search = '\\'+req.body.query;
+        return query4Search(search);
+    } else {
+        const format = /[?@#$%^&*()_+\-=\[\]{};':"\\|<>\/]+/;    
+        let search = req.body.query;
+        if(format.test(search)){        
+            console.error(`illegal symbol in search: ${search}`);
+            return res.status(404).send("illegal symbol in search");
+          } else {                    
+            return query4Search(search);
+          };
+    }
 })
 
 module.exports = router
