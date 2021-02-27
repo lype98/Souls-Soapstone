@@ -35,7 +35,7 @@ const elTemplateBox = $('#templateBox');
     });
 })();
 
-elTemplateBox.addEventListener('touchstart click', (e)=> { // click listener change the main template
+elTemplateBox.addEventListener('click', (e)=> { // click listener change the main template
     if(elTemplateBox.value) {
         currentTemplate = elTemplateBox.value; // update currentTemplate
         currentIndexes.template1 = elTemplateBox.selectedIndex; // update current template index
@@ -68,7 +68,7 @@ const elConjBox = $('#conjBox');
     });
 })();
 
-elConjBox.addEventListener('touchstart click', (e)=> { // click listener to change the main template
+elConjBox.addEventListener('click', (e)=> { // click listener to change the main template
     if(elConjBox.value) {
         mainConjunction.innerHTML = e.target.value;        
         if(e.target.id >= 1 && e.target.id <= 10){
@@ -78,7 +78,7 @@ elConjBox.addEventListener('touchstart click', (e)=> { // click listener to chan
 });
 
 const elConjCheck = $('#conjCheck');
-elConjCheck.addEventListener('touchstart click', (e)=> { // toggles conjunctions visibility
+elConjCheck.addEventListener('click', (e)=> { // toggles conjunctions visibility
     if($('#conjCheck').checked == true) {
         $('#conjunction').style.display = "inline-block";
         secondTemplate.style.display = "inline-block";
@@ -103,7 +103,7 @@ elTypeClass.forEach(typeClass => {
         typeClass.appendChild(elOption);
     });
 });
-elType.addEventListener('touchstart click', (e)=> { // click listener to populate the word box
+elType.addEventListener('click', (e)=> { // click listener to populate the word box
     if(elType.value && elWord.length == 0) {
         handler.populateWord(elType,elWord);
     }
@@ -113,7 +113,7 @@ elType.addEventListener('touchstart click', (e)=> { // click listener to populat
     }
 });
 
-elWord.addEventListener('touchstart click', (e)=> { // click listener to select a word and refresh the template
+elWord.addEventListener('click', (e)=> { // click listener to select a word and refresh the template
     if(elWord.value) {
         firstWord = elWord.value;        
         currentIndexes.word1 = parseInt(e.target.id);
@@ -145,7 +145,7 @@ const elTemplateBox2 = $('#templateBox2');
     });
 })();
 
-elTemplateBox2.addEventListener('touchstart click', (e)=> { // click listener to change the main template
+elTemplateBox2.addEventListener('click', (e)=> { // click listener to change the main template
     if(elTemplateBox2.value) {
         currentTemplate2 = elTemplateBox2.value; // update currentTemplate2
         currentIndexes.template2 = elTemplateBox2.selectedIndex; // update current template index        
@@ -161,7 +161,7 @@ elTemplateBox2.addEventListener('touchstart click', (e)=> { // click listener to
 const elWord2 = $('#word2');
 const elType2 = $('#type2');
 
-elType2.addEventListener('touchstart click', (e)=> { // click listener to populate the word box
+elType2.addEventListener('click', (e)=> { // click listener to populate the word box
     if(elType2.value && elWord2.length == 0) {
         handler.populateWord(elType2,elWord2);
     }
@@ -171,7 +171,7 @@ elType2.addEventListener('touchstart click', (e)=> { // click listener to popula
     }
 });
 
-elWord2.addEventListener('touchstart click', (e)=> { // click listener to select a word and refresh the template
+elWord2.addEventListener('click', (e)=> { // click listener to select a word and refresh the template
     if(elWord2.value) {
         secondWord = elWord2.value;
         currentIndexes.word2 = parseInt(e.target.id);
@@ -182,7 +182,7 @@ elWord2.addEventListener('touchstart click', (e)=> { // click listener to select
 /** ------------------------- Submit ------------------------- */
 const submitButton = $('#submitButton');
 
-submitButton.addEventListener('touchstart click', async(e)=> {
+submitButton.addEventListener('click', async(e)=> {
     const matchString = (array,string,varIndex)=> {
         index++;        
         if(array[0] === string) {
@@ -212,7 +212,7 @@ submitButton.addEventListener('touchstart click', async(e)=> {
     };
 });
 /** ------------------------- coiled sword ------------------------- */
-$('#returnHomepage').addEventListener('touchstart click', (e)=> {
+$('#returnHomepage').addEventListener('click', (e)=> {
     window.location.href = '/';
 });
 /** ------------------------- modals ------------------------- */
@@ -251,7 +251,7 @@ const handler = {
               let response = JSON.parse(xhr.response);              
               if(response.pathExists){
                   handler.modalRedirect();
-                  return $('#modalRedirectButton').addEventListener('touchstart click', (e)=> {
+                  return $('#modalRedirectButton').addEventListener('click', (e)=> {
                       window.location.href=`/ds3/${response.pathExists}`;
                   });
               };

@@ -3,7 +3,7 @@ const $$ = document.querySelectorAll.bind(document);
 let currentPage = {id:0};
 let searchPage = 0;
 
-$('#ds3Flag').addEventListener('touchstart click', (e)=> {
+$('#ds3Flag').addEventListener('click', (e)=> {
     window.location.href = "/ds3";   
 });
 
