@@ -35,7 +35,7 @@ const elTemplateBox = $('#templateBox');
     });
 })();
 
-elTemplateBox.addEventListener('touchstart click', (e)=> { // click listener to change the main template
+elTemplateBox.addEventListener('touchstart click', (e)=> { // click listener change the main template
     if(elTemplateBox.value) {
         currentTemplate = elTemplateBox.value; // update currentTemplate
         currentIndexes.template1 = elTemplateBox.selectedIndex; // update current template index
