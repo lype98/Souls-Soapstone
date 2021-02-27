@@ -5,4 +5,4 @@ Currently hosted in heroku.com (since 30th January 2021): https://souls-soapston
 
 
 TODO:
-start the remaining souls games message systems (Demon's Souls, Dark Souls I, Dark Souls II and Bloodborne).
+start the remaining souls games message systems (Demon's Souls, Dark Souls I, Dark Souls II and Bloodborne)..
