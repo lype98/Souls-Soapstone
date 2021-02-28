@@ -64,6 +64,6 @@ const dispargeAjax = (e)=> {
 };
 dispargeButton.addEventListener('click', dispargeAjax)
 
-$('#returnHomepage').addEventListener('click', (e)=> { // coiled sword to return to main page
+$('#returnHomepage').addEventListener('pointerdown', (e)=> { // coiled sword to return to main page
     window.location.href = '/';
 });

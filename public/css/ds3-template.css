@@ -82,17 +82,13 @@ BODY {
 }
 
 #returnHomepage {
-  position: absolute;
-  top: 245;
-  left: 17vw;
   max-height: 80px;
 }
 
-@media screen and (min-width:0px) and (max-width:1180px){
-  #returnHomepage {
-    top: 230;
-    left: 2vw;
-    max-height: 60px;    
+@media screen and (min-width:0px) and (max-width:990px){
+  #returnHomepage {    
+    left: 47vw !important;
+        
   }
 }
 
